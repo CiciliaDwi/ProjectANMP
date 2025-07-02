@@ -15,20 +15,24 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
     fun loadTransactions() {
         viewModelScope.launch {
             val db = AppDatabase.getInstance(getApplication())
+            val budgets = db.budgetDao().getAll()
 
             // 1. Tambahkan dummy budget jika belum ada
-            val budgets = db.budgetDao().getAll()
-            val budgetId = if (budgets.isEmpty()) {
+            var budgetId = 0
+
+            if (budgets.isEmpty()) {
                 val dummyBudget = com.ubaya.a3pilar_project.model.Budget(
-                    title = "Test Budget",
+                    title = "Budget",
                     maxAmount = 100000,
-                    category = "Test"
+                    usedAmount = 50000,
+                    category = "Kategori"
                 )
-                val id = db.budgetDao().insert(dummyBudget).toInt()
-                id
+                val insertedId = db.budgetDao().insert(dummyBudget)
+                budgetId = insertedId.toInt() // ⏪ update var
             } else {
-                budgets[0].id // ambil budget pertama yg ada
+                budgetId = budgets[0].id
             }
+
 
             // 2. Tambahkan dummy transaction jika belum ada
             if (db.transactionDao().getAll().isEmpty()) {

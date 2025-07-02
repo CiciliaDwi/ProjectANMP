@@ -1,31 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="16dp"
-    android:orientation="vertical"
-    android:background="#F8F8F8"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:elevation="4dp">
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:text="Judul Budget"
-        android:textStyle="bold"
-        android:textSize="16sp"
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvCategory"
-        android:text="Kategori"
-        android:textColor="#666"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/textViewBudgetName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Budget Name"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
 
-    <TextView
-        android:id="@+id/tvAmount"
-        android:text="Rp0"
-        android:textStyle="italic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/textViewUsedMax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IDR Used / IDR Max"/>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/textViewBudgetLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Budget left: IDR X"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:progress="50"
+            android:max="100"
+            style="?android:attr/progressBarStyleHorizontal"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

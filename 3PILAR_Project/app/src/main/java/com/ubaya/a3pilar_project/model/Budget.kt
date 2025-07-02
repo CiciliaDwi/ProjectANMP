@@ -9,5 +9,6 @@ data class Budget(
     val id: Int = 0,
     val title: String,
     val maxAmount: Int,
+    val usedAmount: Int = 0,
     val category: String
 )

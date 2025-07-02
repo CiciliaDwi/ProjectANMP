@@ -109,24 +109,13 @@ class TransactionFragment : Fragment() {
                 .setTitle("Tambah Transaksi")
                 .setView(dialogView)
                 .setPositiveButton("Simpan") { _, _ ->
-                    val amount = etAmount.text.toString().toIntOrNull()
-                    val desc = etDescription.text.toString()
-
-                    if (amount == null || amount < 0) {
-                        Toast.makeText(requireContext(), "Nominal tidak valid", Toast.LENGTH_SHORT).show()
-                        return@setPositiveButton
-                    }
-
-                    val sisa = selectedBudget!!.maxAmount - totalExpense
-                    if (amount > sisa) {
-                        Toast.makeText(requireContext(), "Melebihi sisa budget", Toast.LENGTH_SHORT).show()
-                        return@setPositiveButton
-                    }
+                    val amountString = etAmount.text.toString()
+                    val amount = amountString.toInt()
 
                     val trx = ExpenseTransaction(
                         budgetId = selectedBudget!!.id,
                         amount = amount,
-                        description = desc,
+                        description = etDescription.text.toString(),
                         date = LocalDate.now().toString()
                     )
 

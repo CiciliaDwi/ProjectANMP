@@ -1,35 +1,46 @@
 package com.ubaya.a3pilar_project.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.ubaya.a3pilar_project.databinding.ItemBudgetBinding
+import com.ubaya.a3pilar_project.R
 import com.ubaya.a3pilar_project.model.Budget
 
 class BudgetAdapter(
-    private val budgets: List<Budget>,
-    private val onClick: (Budget) -> Unit
+    val budgets: List<Budget>,
+    val onClick: ((Budget) -> Unit)? = null  // <- opsional
 ) : RecyclerView.Adapter<BudgetAdapter.BudgetViewHolder>() {
 
-    class BudgetViewHolder(val binding: ItemBudgetBinding) : RecyclerView.ViewHolder(binding.root)
+    class BudgetViewHolder(var view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BudgetViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemBudgetBinding.inflate(inflater, parent, false)
-        return BudgetViewHolder(binding)
+        val view = inflater.inflate(R.layout.item_budget, parent, false)
+        return BudgetViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: BudgetViewHolder, position: Int) {
         val budget = budgets[position]
-        holder.binding.tvTitle.text = budget.title
-        holder.binding.tvCategory.text = budget.category
-        holder.binding.tvAmount.text = "Rp${budget.maxAmount}"
+        with(holder.view) {
+            findViewById<TextView>(R.id.textViewBudgetName).text = budget.title
+            findViewById<TextView>(R.id.textViewUsedMax).text =
+                "IDR ${budget.usedAmount} / IDR ${budget.maxAmount}"
+            findViewById<TextView>(R.id.textViewBudgetLeft).text =
+                "Budget left: IDR ${budget.maxAmount - budget.usedAmount}"
 
+            val progress = (budget.usedAmount.toFloat() / budget.maxAmount * 100).toInt()
+            findViewById<ProgressBar>(R.id.progressBar).progress = progress
 
-        holder.itemView.setOnClickListener {
-            onClick(budget)
+            // Kalau ada onClick, panggil
+            setOnClickListener {
+                onClick?.invoke(budget)
+            }
         }
     }
 
-    override fun getItemCount(): Int = budgets.size
+    override fun getItemCount() = budgets.size
 }
+

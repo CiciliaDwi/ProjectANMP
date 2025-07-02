@@ -1,5 +1,6 @@
 package com.ubaya.a3pilar_project.ui
 
+import com.ubaya.a3pilar_project.adapter.BudgetAdapter
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ubaya.a3pilar_project.R
-import com.ubaya.a3pilar_project.adapter.BudgetAdapter
 import com.ubaya.a3pilar_project.databinding.FragmentBudgetBinding
 import com.ubaya.a3pilar_project.model.Budget
 import com.ubaya.a3pilar_project.viewmodel.BudgetViewModel
@@ -47,24 +47,24 @@ class BudgetFragment : Fragment() {
                 .setTitle("Tambah Budget")
                 .setView(dialogView)
                 .setPositiveButton("Simpan") { _, _ ->
-                    val title = etTitle.text.toString()
-                    val amount = etAmount.text.toString()
-                    val category = etCategory.text.toString()
+                    val amountString = etAmount.text.toString()
+                    val amount = amountString.toInt()
 
-                    if (title.isNotEmpty() && amount.isNotEmpty() && category.isNotEmpty()) {
-                        val budget = Budget(title = title, maxAmount = amount.toInt(), category = category)
-                        viewModel.addBudget(budget)
-                        Toast.makeText(requireContext(), "Budget disimpan", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(requireContext(), "Semua field wajib diisi", Toast.LENGTH_SHORT).show()
-                    }
+                    val budget = Budget(
+                        id = 0,
+                        title = etTitle.text.toString(),
+                        maxAmount = amount,
+                        usedAmount = 0,
+                        category = etCategory.text.toString()
+                    )
+
+                    viewModel.addBudget(budget)
                 }
                 .setNegativeButton("Batal", null)
-                .create()
                 .show()
+
         }
 
-        viewModel.loadBudgets()
         return binding.root
     }
 
