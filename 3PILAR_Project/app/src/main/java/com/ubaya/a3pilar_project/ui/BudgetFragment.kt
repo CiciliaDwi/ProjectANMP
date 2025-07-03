@@ -54,9 +54,10 @@ class BudgetFragment : Fragment() {
                         id = 0,
                         title = etTitle.text.toString(),
                         maxAmount = amount,
-                        usedAmount = 0,
                         category = etCategory.text.toString()
-                    )
+                    ).apply {
+                        usedAmount = 0
+                    }
 
                     viewModel.addBudget(budget)
                 }

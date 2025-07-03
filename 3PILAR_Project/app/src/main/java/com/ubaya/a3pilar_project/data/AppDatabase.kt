@@ -9,7 +9,7 @@ import com.ubaya.a3pilar_project.model.Budget
 import com.ubaya.a3pilar_project.model.ExpenseTransaction
 
 
-@Database(entities = [User::class, Budget::class, ExpenseTransaction::class], version = 7)
+@Database(entities = [User::class, Budget::class, ExpenseTransaction::class], version = 10)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun budgetDao(): BudgetDao
