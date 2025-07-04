@@ -7,40 +7,33 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ubaya.a3pilar_project.R
+import com.ubaya.a3pilar_project.databinding.ItemBudgetBinding
 import com.ubaya.a3pilar_project.model.Budget
 
 class BudgetAdapter(
-    val budgets: List<Budget>,
-    val onClick: ((Budget) -> Unit)? = null  // <- opsional
+    private val budgets: List<Budget>,
+    private val onClick: (Budget) -> Unit
 ) : RecyclerView.Adapter<BudgetAdapter.BudgetViewHolder>() {
 
-    class BudgetViewHolder(var view: View) : RecyclerView.ViewHolder(view)
+    inner class BudgetViewHolder(val binding: ItemBudgetBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BudgetViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.item_budget, parent, false)
-        return BudgetViewHolder(view)
+        val binding = ItemBudgetBinding.inflate(inflater, parent, false)
+        return BudgetViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: BudgetViewHolder, position: Int) {
         val budget = budgets[position]
-        with(holder.view) {
-            findViewById<TextView>(R.id.textViewBudgetName).text = budget.title
-            findViewById<TextView>(R.id.textViewUsedMax).text =
-                "IDR ${budget.usedAmount} / IDR ${budget.maxAmount}"
-            findViewById<TextView>(R.id.textViewBudgetLeft).text =
-                "Budget left: IDR ${budget.maxAmount - budget.usedAmount}"
-
-            val progress = (budget.usedAmount.toFloat() / budget.maxAmount * 100).toInt()
-            findViewById<ProgressBar>(R.id.progressBudget).progress = progress
-
-            // Kalau ada onClick, panggil
-            setOnClickListener {
-                onClick?.invoke(budget)
-            }
+        with(holder.binding) {
+            tvTitle.text = budget.title
+            tvMaxAmount.text = "IDR ${budget.maxAmount}"
+            root.setOnClickListener { onClick(budget) }
         }
     }
 
-    override fun getItemCount() = budgets.size
+    override fun getItemCount(): Int = budgets.size
 }
+
 
