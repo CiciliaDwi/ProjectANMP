@@ -45,7 +45,7 @@
             android:textColor="@android:color/black" />
 
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/progressBudget"
             android:layout_width="match_parent"
             android:layout_height="8dp"
             android:layout_marginTop="8dp"

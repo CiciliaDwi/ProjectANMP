@@ -27,7 +27,7 @@ class ReportAdapter(private val budgets: List<Budget>) :
             tvUsed.text = "Terpakai: Rp${item.usedAmount}"
             tvMax.text = "Total Budget: Rp${item.maxAmount}"
             tvRemaining.text = "Sisa: Rp$sisa"
-            progressBar.progress = percent
+            progressBudget.progress = percent
         }
     }
 

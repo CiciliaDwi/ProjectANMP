@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.fragment.findNavController
 import com.ubaya.a3pilar_project.R
 import com.ubaya.a3pilar_project.databinding.FragmentBudgetBinding
 import com.ubaya.a3pilar_project.model.Budget
@@ -31,39 +32,13 @@ class BudgetFragment : Fragment() {
         binding.rvBudget.layoutManager = LinearLayoutManager(requireContext())
         viewModel.budgetList.observe(viewLifecycleOwner) {
             binding.rvBudget.adapter = BudgetAdapter(it) { budget ->
-                showEditDialog(budget)
+                val action = findNavController().navigate(R.id.action_budgetFragment_to_addBudgetFragment)
             }
         }
 
         // Tombol FAB untuk tambah budgeting
         binding.fabAddBudget.setOnClickListener {
-            val dialogView = layoutInflater.inflate(R.layout.dialog_add_budget, null)
-
-            val etTitle = dialogView.findViewById<EditText>(R.id.etDialogTitle)
-            val etAmount = dialogView.findViewById<EditText>(R.id.etDialogAmount)
-            val etCategory = dialogView.findViewById<EditText>(R.id.etDialogCategory)
-
-            AlertDialog.Builder(requireContext())
-                .setTitle("Tambah Budget")
-                .setView(dialogView)
-                .setPositiveButton("Simpan") { _, _ ->
-                    val amountString = etAmount.text.toString()
-                    val amount = amountString.toInt()
-
-                    val budget = Budget(
-                        id = 0,
-                        title = etTitle.text.toString(),
-                        maxAmount = amount,
-                        category = etCategory.text.toString()
-                    ).apply {
-                        usedAmount = 0
-                    }
-
-                    viewModel.addBudget(budget)
-                }
-                .setNegativeButton("Batal", null)
-                .show()
-
+            val action = findNavController().navigate(R.id.action_budgetFragment_to_addBudgetFragment)
         }
 
         return binding.root

@@ -3,6 +3,7 @@ package com.ubaya.a3pilar_project
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import com.ubaya.a3pilar_project.databinding.ActivityMainBinding
 import com.ubaya.a3pilar_project.ui.BudgetFragment
 import com.ubaya.a3pilar_project.ui.ProfileFragment
@@ -15,28 +16,22 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // ✅ Tampilkan TransactionFragment sebagai default
-        loadFragment(TransactionFragment())
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
 
-        // 🔽 Navigasi bottom menu
-        binding.bottomNavigation.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.menu_budget -> loadFragment(BudgetFragment())
-                R.id.menu_transaksi -> loadFragment(TransactionFragment())
-                R.id.menu_profile -> loadFragment(ProfileFragment())
-                R.id.menu_report -> loadFragment(ReportFragment())
+        // Bottom Navigation setup
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.menu_budget -> navController.navigate(R.id.budgetFragment)
+                R.id.menu_transaksi -> navController.navigate(R.id.transactionFragment)
+                R.id.menu_profile -> navController.navigate(R.id.profileFragment)
+                R.id.menu_report -> navController.navigate(R.id.reportFragment)
             }
             true
         }
-    }
-
-    private fun loadFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.nav_host_fragment, fragment)
-            .commit()
     }
 }

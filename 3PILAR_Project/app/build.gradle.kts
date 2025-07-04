@@ -1,13 +1,14 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.kapt") // KAPT wajib untuk Room di Kotlin
+    id("org.jetbrains.kotlin.kapt")
 }
+
 
 android {
     namespace = "com.ubaya.a3pilar_project"
     compileSdk = 34
-
+        
     defaultConfig {
         applicationId = "com.ubaya.a3pilar_project"
         minSdk = 24
@@ -57,6 +58,8 @@ dependencies {
     // Room
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     kapt("androidx.room:room-compiler:2.6.1")
 
 

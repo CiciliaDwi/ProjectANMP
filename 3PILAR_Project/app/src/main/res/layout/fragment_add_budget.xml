@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/addBudgetLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="#FAF6FF">
+
+<!-- Title -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Budget"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Budget Name -->
+    <EditText
+        android:id="@+id/etTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Budget Name"
+        android:background="@drawable/bg_edittext"
+        android:padding="12dp"
+        android:textColorHint="#888"
+        android:textColor="#000"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp" />
+
+    <!-- Budget Nominal -->
+    <EditText
+        android:id="@+id/etAmount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Nominal"
+        android:inputType="number"
+        android:background="@drawable/bg_edittext"
+        android:padding="12dp"
+        android:textColorHint="#888"
+        android:textColor="#000"
+        app:layout_constraintTop_toBottomOf="@id/etTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/etCategory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Category"
+        android:background="@drawable/bg_edittext"
+        android:padding="12dp"
+        android:textColorHint="#888"
+        android:textColor="#000"
+        app:layout_constraintTop_toBottomOf="@id/etAmount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <!-- Save Button -->
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ADD BUDGET"
+        android:textAllCaps="true"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#5E17EB"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        app:cornerRadius="12dp"
+        app:layout_constraintTop_toBottomOf="@id/etCategory"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="28dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

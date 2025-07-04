@@ -110,7 +110,16 @@ class TransactionFragment : Fragment() {
                 .setView(dialogView)
                 .setPositiveButton("Simpan") { _, _ ->
                     val amountString = etAmount.text.toString()
-                    val amount = amountString.toInt()
+                    if (amountString.isEmpty()) {
+                        Toast.makeText(requireContext(), "Nominal tidak boleh kosong", Toast.LENGTH_SHORT).show()
+                        return@setPositiveButton
+                    }
+                    val amount = amountString.toIntOrNull()
+                    if (amount == null || amount <= 0) {
+                        Toast.makeText(requireContext(), "Nominal harus lebih dari 0", Toast.LENGTH_SHORT).show()
+                        return@setPositiveButton
+                    }
+
 
                     val trx = ExpenseTransaction(
                         budgetId = selectedBudget!!.id,

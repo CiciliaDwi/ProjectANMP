@@ -32,7 +32,7 @@ class BudgetAdapter(
                 "Budget left: IDR ${budget.maxAmount - budget.usedAmount}"
 
             val progress = (budget.usedAmount.toFloat() / budget.maxAmount * 100).toInt()
-            findViewById<ProgressBar>(R.id.progressBar).progress = progress
+            findViewById<ProgressBar>(R.id.progressBudget).progress = progress
 
             // Kalau ada onClick, panggil
             setOnClickListener {
